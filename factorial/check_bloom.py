@@ -3,7 +3,7 @@
 import mmh3
 from bitarray import bitarray
 
-# HYPO: Increase size will decrease FP
+# HYPO: Size and hash pass count affect speed
 
 class Bloom(object):
     def __init__(self, item_count, hash_pass_count):
@@ -42,14 +42,15 @@ class Bloom(object):
             absent=fp.readlines()
         return absent
 
-print("Result if size changes")
+print("Result if both size and hash pass count changes")
 for s in range(10000, 2000000, 10000):
-    false_count=0
-    sb = Bloom(s, 1)
-    for p in sb.present_data:
-        sb.add(p)
-    for a in sb.absent_data:
-        val = sb.check(a)
-        if val:
-            false_count+=1
-    print(str(s) + ',' + str(false_count))
+    for h in range(1,11):
+        false_count=0
+        sb = Bloom(s, h)
+        for p in sb.present_data:
+            sb.add(p)
+        for a in sb.absent_data:
+            val = sb.check(a)
+            if val:
+                false_count+=1
+        print(str(s) + ',' + str(h) + ',' + str(false_count))
