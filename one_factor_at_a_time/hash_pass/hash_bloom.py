@@ -42,7 +42,6 @@ class Bloom(object):
             absent=fp.readlines()
         return absent
 
-print("Result if hash pass count changes")
 for h in range(1,11):
     false_count=0
     sb = Bloom(10000, h)

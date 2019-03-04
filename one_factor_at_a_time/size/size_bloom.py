@@ -42,7 +42,6 @@ class Bloom(object):
             absent=fp.readlines()
         return absent
 
-print("Result if size changes")
 for s in range(10000, 2000000, 10000):
     false_count=0
     sb = Bloom(s, 1)

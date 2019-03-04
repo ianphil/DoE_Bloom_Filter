@@ -12,6 +12,7 @@ class Bloom(object):
         self.present_data=self.get_present_data()
         self.absent_data=self.get_absent_data()
         self.ba=bitarray(self.size)
+        self.ba.setall(False)
 
     def add(self, item):
         for i in range(self.hash_pass):
@@ -32,19 +33,18 @@ class Bloom(object):
 
     @classmethod
     def get_present_data(self):
-        with open('../../resources/present.txt', 'r') as fp:
+        with open('../resources/present.txt', 'r') as fp:
             present=fp.readlines()
         return present
     
     @classmethod
     def get_absent_data(self):
-        with open('../../resources/absent.txt', 'r') as fp:
+        with open('../resources/absent.txt', 'r') as fp:
             absent=fp.readlines()
         return absent
 
-print("Result if both size and hash pass count changes")
-for s in range(10000, 2000000, 10000):
-    for h in range(1,11):
+for s in range(10000, 30000, 10000):
+    for h in range(1,3):
         false_count=0
         sb = Bloom(s, h)
         for p in sb.present_data:
