@@ -49,28 +49,37 @@ class BloomFilterCalculator(object):
 
     def bit_array_size(self, n, p):
         '''
-        m = bit array size
-        n = number of items
-        p = false positive probability
+        input:
+            n = number of items
+            p = false positive probability
+        output:
+            m = bit array size
         '''
+
         m = -(n * math.log(p)) / (math.log(2)**2)
         return int(m)
 
     def hash_pass_count(self, m, n):
         '''
-        m = bit array size
-        n = number of items
-        k = number of hash passes
+        input:
+            m = bit array size
+            n = number of items
+        output:
+            k = number of hash passes
         '''
+
         k = (m/n) * math.log(2)
         return int(k)
 
     def false_positive_probability(self, m, k, n):
         '''
-        m = bit array size
-        n = number of items
-        k = number of hash passes
-        p = false positive probability
+        input:
+            m = bit array size
+            k = number of hash passes
+            n = number of items
+        output:
+            p = false positive probability
         '''
+        
         p = (1-(1-1/m)**(k*n))**k
         return float('{0:.4f}'.format(p))

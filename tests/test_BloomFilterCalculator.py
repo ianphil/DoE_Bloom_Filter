@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import unittest
-from bloom_filter.bloom_filter import BloomFilterCalculator
+from src.model.bloom_filter import BloomFilterCalculator
 
 class BloomFilterCalculator_TestSuite(unittest.TestCase):
     """Tests for Bloom Filter Calculator class"""

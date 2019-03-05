@@ -2,16 +2,16 @@
 # -*- coding: utf-8 -*-
 
 import unittest
-from bloom_filter.bloom_filter import BloomFilter
-from bloom_filter.users import PresentUsers, AbsentUsers
+from src.model.bloom_filter import BloomFilter
+from src.model.users import PresentUsers, AbsentUsers
 
 class BloomFilter_TestSuite(unittest.TestCase):
     """Tests for Bloom Filter class"""
 
     @classmethod
     def setUpClass(self):
-        self.present_users = PresentUsers('./bloom_filter/resources/present.txt')
-        self.absent_users = AbsentUsers('./bloom_filter/resources/absent.txt')
+        self.present_users = PresentUsers('./src/resources/present.txt')
+        self.absent_users = AbsentUsers('./src/resources/absent.txt')
 
     def test_add_bloomfilter(self):
         bf = BloomFilter(124, 4)
