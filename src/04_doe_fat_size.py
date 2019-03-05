@@ -20,8 +20,8 @@ def main():
             if user in bloom_filter:
                 false_positive_count += 1
 
-        print('There are {} false positives for {} absent users, or {} false positive probability'
-            .format(false_positive_count, len(absent_users), false_positive_count/len(absent_users)))
+        print('There are {} false positives when bit array size is {}'
+            .format(false_positive_count, bit_arr_size))
 
 if __name__ == '__main__':
     main()
