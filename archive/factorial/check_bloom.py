@@ -54,3 +54,11 @@ for s in range(10000, 30000, 10000):
             if val:
                 false_count+=1
         print(str(s) + ',' + str(h) + ',' + str(false_count))
+
+
+# def __repr__(self):
+#     return 'BloomFilter(ideal_num_elements_n=%d, error_rate_p=%f, num_bits_m=%d)' % (
+#         self.ideal_num_elements_n,
+#         self.error_rate_p,
+#         self.num_bits_m,
+#     )
