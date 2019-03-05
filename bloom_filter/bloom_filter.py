@@ -17,6 +17,7 @@ class BloomFilter(object):
         return iter(self.bit_array)
 
     def add(self, item):
+        item = item.strip()
         for i in range(self.hash_passes):
             h = mmh3.hash(item, i) % self.size
             self.bit_array[h] = True
@@ -25,8 +26,12 @@ class BloomFilter(object):
         self.add(item)
         return self
 
-    def __contains__(self, item):
+    def count(self):
+        return self.bit_array.count()
+
+    def check(self, item):
         digest=[]
+        item = item.strip()
         for i in range(self.hash_passes):
             h = mmh3.hash(item, i) % self.size
             present = self.bit_array[h]
@@ -36,6 +41,9 @@ class BloomFilter(object):
                 digest.append(present)
                 if len(digest) == self.hash_passes:
                     return True
+
+    def __contains__(self, item):
+        return self.check(item)
 
 class BloomFilterCalculator(object):
 

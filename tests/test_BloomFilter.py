@@ -15,8 +15,38 @@ class BloomFilter_TestSuite(unittest.TestCase):
 
     def test_add_bloomfilter(self):
         bf = BloomFilter(124, 4)
-        assert bf.bit_array.count() == 0
+
+        assert bf.count() == 0
+
         for i in range(20):
-            bf.add(self.present_users[i])
-        assert bf.bit_array.count() == 58
+            bf += self.present_users[i]
+
+        assert bf.count() == 62
+
+    def test_check_bloomfilter(self):
+        bf = BloomFilter(124, 4)
+        for i in range(20):
+            bf += self.present_users[i]
+
+        # TODO: Show Meghan in slide deck as example of bloom
+        # This is a present user
+        if 'meghan.olson' in bf:
+            assert True
+        else:
+            assert False
+
+        # This is an absent user
+        if 'johnny.dang' not in bf:
+            assert True
+        else:
+            assert False
+
+        # This is a false positive
+        if 'thanh.vaughn' in bf:
+            assert True
+        else:
+            assert False
+
+        
+
         
