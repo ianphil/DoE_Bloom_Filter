@@ -21,6 +21,7 @@ class BloomFilter_TestSuite(unittest.TestCase):
         for i in range(20):
             bf += self.present_users[i]
 
+        self.assertEqual(bf.count(), 62)
         assert bf.count() == 62
 
     def test_check_bloomfilter(self):
