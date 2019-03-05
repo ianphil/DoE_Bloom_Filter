@@ -9,4 +9,4 @@ class PresentUsers_TestSuite(unittest.TestCase):
 
     def test_Present_Users(self):
         present_users = PresentUsers('./bloom_filter/resources/present.txt')
-        assert len(present_users) == 10000
+        self.assertEqual(len(present_users), 10000)

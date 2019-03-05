@@ -9,4 +9,4 @@ class AbsentUsers_TestSuite(unittest.TestCase):
 
     def test_Absent_Users(self):
         absent_users = AbsentUsers('./bloom_filter/resources/absent.txt')
-        assert len(absent_users) == 1000
+        self.assertEqual(len(absent_users), 1000)
