@@ -3,6 +3,9 @@
 from model.bloom_filter import BloomFilter
 from model.users import PresentUsers, AbsentUsers
 
+# This is the last experiment, a 2 factorial designed experiment. The goal is to understand 
+# the mass effect of each variable, but also the interaction between the to variables we control
+# and how they affect the respons variable (false positives). 
 def main():
     
     # Present file contains 10,000 generated usernames that are added to the bloom filter.
@@ -19,6 +22,7 @@ def main():
     # and the hash pass count for the bloom filter. M Range is 50,000 to 70,000 with 
     # a step of 10,000. This should surround the right sized value of 62352. k range is 3 to
     # 5 and also should surround the right sized value of 4.
+    # TODO: O(n^2) - refactor to more be efficient using a memoization pattern.
     for hash_count in range(3, 5):
         for bit_arr_size in range(50000, 70000, 10000):
 

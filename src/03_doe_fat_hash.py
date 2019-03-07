@@ -5,7 +5,9 @@ from model.users import PresentUsers, AbsentUsers
 
 # This is the first of the experiments. We are focused on only one factor k (hash passes).
 # We hold the size of m (bit array) constant and only adjust k over a range of 1-9 and show 
-# how many false positives we receive. 
+# how many false positives we receive. This doesn't provide very much insight into how bloom
+# filters work, because we don't understand how the constant variables affect the response 
+# variable. 
 def main():
     # Present file contains 10,000 generated usernames that are added to the bloom filter.
     present_users_file = './src/resources/present.txt'
