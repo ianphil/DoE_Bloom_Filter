@@ -2,6 +2,7 @@
 
 from model.bloom_filter import BloomFilter
 from model.users import PresentUsers, AbsentUsers
+import matplotlib.pyplot as plt 
 
 # This is the second experiment. We are focused on only one factor m (bit array).
 # We hold the size of k (hash passes) constant and only adjust m over a range of 
@@ -21,6 +22,8 @@ def main():
 
     # Loop over a specified range of ints to adjust the size of the bit array for 
     # the bloom filter. Range is 10,000 to 90,000 with a step of 10,000.
+    cnt_size = []
+    cnt_fp = []
     for bit_arr_size in range(10000, 90000, 10000):
 
         # Bloom filter right sized to hash passes for 10,000 items, but adjusted the
@@ -37,8 +40,16 @@ def main():
             if user in bloom_filter:
                 false_positive_count += 1
 
+        # Add results to list for graph
+        cnt_size.append(bit_arr_size)
+        cnt_fp.append(false_positive_count)
+
         print('There are {} false positives when bit array size is {}'
             .format(false_positive_count, bit_arr_size))
+
+    # Create and show graph
+    plt.plot(cnt_size, cnt_fp)
+    plt.show()
 
 if __name__ == '__main__':
     main()
