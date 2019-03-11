@@ -96,9 +96,19 @@ def main():
     plt.xlabel('Bit Array Size Count')
     plt.ylabel('False Positive Avg')
     plt.title('Bit Array Size Mass Effect')
-    plt.show()
+    
 
     # Interaction Plot
+    interaction_fp_1 = [cnt_fp[0], cnt_fp[-1]]
+    interaction_fp_2 = [cnt_fp[1], cnt_fp[-2]]
+    interaction_effect = np.absolute((np.sum(interaction_fp_1)/len(interaction_fp_1))-(np.sum(interaction_fp_2)/len(interaction_fp_2)))
+    print('The Hash Pass / Bit Array Size effect is {}'.format(interaction_effect))
+
+    plt.figure(4)
+    plt.plot(interaction_fp_1, '-o')
+    plt.plot(interaction_fp_2, '-o')
+
+    plt.show()
 
 
 if __name__ == '__main__':
