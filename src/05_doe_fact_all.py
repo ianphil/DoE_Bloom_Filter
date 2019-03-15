@@ -63,7 +63,7 @@ def main():
     for i in range(4):
         plt.text(cnt_passes[i], cnt_size[i], ' ' + str(cnt_fp[i]), size='15')
 
-    # Hash Pass Main Effect Plot
+    # Hash Pass Main Effect + Plot
     hash_pass_x_axis = cnt_passes[:3:2]
     hash_pass_fp_3 = cnt_fp[:2]
     hash_pass_fp_4 = cnt_fp[2:4]
@@ -80,7 +80,7 @@ def main():
     plt.ylabel('False Positive Avg')
     plt.title('Hash Pass Count Mass Effect')
 
-    # Bit Array Size Main Effect Plot
+    # Bit Array Size Main Effect + Plot
     bit_size_x_axis = cnt_size[:2]
     bit_size_fp_5 = cnt_fp[:3:2]
     bit_size_fp_6 = cnt_fp[1:4:2]
@@ -98,7 +98,7 @@ def main():
     plt.title('Bit Array Size Mass Effect')
     
 
-    # Interaction Plot
+    # Hash Pass/Bit Array Size Interaction Effect + Plot
     interaction_fp_1 = [cnt_fp[0], cnt_fp[-1]]
     interaction_fp_2 = [cnt_fp[1], cnt_fp[-2]]
     interaction_effect = np.absolute((np.sum(interaction_fp_1)/len(interaction_fp_1))-(np.sum(interaction_fp_2)/len(interaction_fp_2)))
