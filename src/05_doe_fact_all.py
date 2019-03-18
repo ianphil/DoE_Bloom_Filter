@@ -53,6 +53,7 @@ def main():
             print('There are {} false positives when bit array size is {} and hash count is {}'
                 .format(false_positive_count, bit_arr_size, hash_count))
 
+# TODO: Refactor into something else
     # Cube Plot
     plt.plot(cnt_passes, cnt_size, 'o')
     plt.xticks(ticks=[3, 4])
