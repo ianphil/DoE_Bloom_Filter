@@ -78,21 +78,58 @@ There are three main factors we can use to efficiently and effectively store and
 
 ![image](https://user-images.githubusercontent.com/17349002/54538296-66b4d980-496a-11e9-8af5-7d4fcd6c7c09.png)
 
-![image](https://user-images.githubusercontent.com/17349002/54538331-73393200-496a-11e9-885b-c743925caa77.png)
+```python
+def false_positive_probability(self, m, k, n):
+    '''
+    input:
+        m = bit array size
+        k = number of hash passes
+        n = number of items
+    output:
+        p = false positive probability
+    '''
+    
+    p = (1-(1-1/m)**(k*n))**k
+    return float('{0:.4f}'.format(p))
+```
 
  2. Size of the bit array
     * Let bit array size be “m”
 
 ![image](https://user-images.githubusercontent.com/17349002/54538446-a380d080-496a-11e9-8a6b-7bba41332cbe.png)
 
-![image](https://user-images.githubusercontent.com/17349002/54538457-a67bc100-496a-11e9-9089-cce953a9e62e.png)
+```python
+def bit_array_size(self, n, p):
+    '''
+    input:
+        n = number of items
+        p = false positive probability
+    output:
+        m = bit array size
+    '''
+
+    m = -(n * math.log(p)) / (math.log(2)**2)
+    return int(m)
+```
 
  3. Number of hash functions or passes
     * Let hash function pass count be “k”
 
 ![image](https://user-images.githubusercontent.com/17349002/54538548-d32fd880-496a-11e9-9a81-9f9cbc70c068.png)
 
-![image](https://user-images.githubusercontent.com/17349002/54538556-d5923280-496a-11e9-8ff6-b9168b555eb6.png)
+```python
+def hash_pass_count(self, m, n):
+    '''
+    input:
+        m = bit array size
+        n = number of items
+    output:
+        k = number of hash passes
+    '''
+
+    k = (m/n) * math.log(2)
+    return int(k)
+```
 
 These equations are used to understand the settings needed to configure a bloom filter to store “x” number of items ([GeeksforGeeks](https://www.geeksforgeeks.org/bloom-filters-introduction-and-python-implementation/)).
 
