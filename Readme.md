@@ -256,3 +256,97 @@ The code snippet above is found in [03_doe_fat_hash.py](https://github.com/iphil
 The goal of a factorial experiment is to “turn the knobs” of all the factors being tested and understand the effect and interactions each have on one another. The major advantage is that using these techniques we can utilize all of the data gathered to determine how best to work with the factors when building machine learning models or solving problems considered complex.
 
 For our Bloom Filter, we are designing a 2-factor factorial experiment. Our controllable variables will consist of the Bit Array size and Hash pass count. All other variables will be held constant using the right-size configuration for our bloom filter. I would like to point out that bloom filters and their factors are a known quantity. As mentioned previously, these experiments are only to explore the process of experimentation and not necessarily to learn anything new about this data structure.
+
+```python
+#!/usr/bin/env python
+
+from model.bloom_filter import BloomFilter
+from model.users import PresentUsers, AbsentUsers
+import matplotlib.pyplot as plt 
+import numpy as np
+import math
+
+# This is the last experiment, a 2 factorial designed experiment. The goal is to understand 
+# the mass effect of each variable, but also the interaction between the to variables we control
+# and how they affect the respons variable (false positives). 
+def main():
+    
+    # Present file contains 10,000 generated usernames that are added to the bloom filter.
+    present_users_file = './src/resources/present.txt'
+
+    # Absent file contains 1,000 generated usersnames that are not in the bloom filter.
+    absent_users_file = './src/resources/absent.txt'
+
+    # Read files into models
+    present_users = PresentUsers(present_users_file)
+    absent_users = AbsentUsers(absent_users_file)
+
+    # Loop over a specified range of ints to adjust both the bit array size
+    # and the hash pass count for the bloom filter. M Range is 50,000 to 70,000 with 
+    # a step of 10,000. This should surround the right sized value of 62352. k range is 3 to
+    # 5 and also should surround the right sized value of 4.
+    # TODO: O(n^2) - refactor to more be efficient using a memoization pattern.
+    cnt_size = []
+    cnt_passes = []
+    cnt_fp = []
+    for hash_count in range(3, 5):
+        for bit_arr_size in range(50000, 70000, 10000):
+
+            # Bloom filter with varying values for both hash passes and bit array sizes 
+            # for 10,000 items
+            bloom_filter = BloomFilter(bit_arr_size, hash_count)
+
+            # Add present users to the bloom filter.
+            for i in range(len(present_users)):
+                bloom_filter += present_users[i]
+
+            # Test for absent users and count the false positives.
+            false_positive_count = 0
+            for user in absent_users:
+                if user in bloom_filter:
+                    false_positive_count += 1
+
+            cnt_fp.append(false_positive_count)
+            cnt_passes.append(hash_count)
+            cnt_size.append(bit_arr_size)
+
+            print('There are {} false positives when bit array size is {} and hash count is {}'
+                .format(false_positive_count, bit_arr_size, hash_count))
+```
+
+The code above is in the file [05_doe_fact_all.py](https://github.com/iphilpot/DoE_Bloom_Filter/blob/master/src/05_doe_fact_all.py) and will drive the experiment. Since we already have the answers to what the settings are for right-sized bloom filter, we target the values surrounding to reduce the amount of experiments we have to run. For hash pass counts we use 3 and 4. For bit array size we use 50,000 and 60,000. For this experiment we will only do one pass. There is no variation in the response variable between runs, so we know the output is statistically significant. Otherwise we would employ other tools to show the output is useful between runs if there is variance detected. 
+
+![image](https://user-images.githubusercontent.com/17349002/54553185-09c81c00-4988-11e9-812a-6c1ac5b86158.png)
+
+The cube plot above shows a 2-factor experiment. The plot has each factor at different levels and each combination shown. This creates a 2-d square where a 3-factor experiment would create a cube. The different combinations for further analysis will be derived from this plot.
+
+To understand the mass effect that the hash pass counts have on our experiment we will take the average of these and plot them. The data from our cube plot would look something like:
+
+![image](https://user-images.githubusercontent.com/17349002/54553383-73482a80-4988-11e9-960c-4d2044de22f7.png)
+
+![image](https://user-images.githubusercontent.com/17349002/54553406-8529cd80-4988-11e9-8894-6f96e352dd0a.png)
+
+The mass effect for hash passes is 1.5
+
+This is found by taking the averages of the two runs and finding the difference: ([83+58]/2)-([95+49]/2) = 1.5
+
+![image](https://user-images.githubusercontent.com/17349002/54553468-a1c60580-4988-11e9-93dd-144b85aea89a.png)
+
+![image](https://user-images.githubusercontent.com/17349002/54553494-b0142180-4988-11e9-9491-86f696c97276.png)
+
+The mass effect for bit array size is 35.5
+
+Similarly, this is found by taking the averages of the two runs and finding the difference: ([83+95]/2)-([58+49]/2) = 35.5
+
+From these two graphs we see that both effect the response variable, but that the bit array size has a more significant effect.
+
+![image](https://user-images.githubusercontent.com/17349002/54553547-cf12b380-4988-11e9-9bb1-22e80b82bba1.png)
+
+![image](https://user-images.githubusercontent.com/17349002/54553566-db970c00-4988-11e9-994f-26961ce62280.png)
+
+The Hash Pass / Bit Array Size interaction effect is 10.5
+
+The hash pass / bit array size interaction effect is obtained by taking the average false positives from left to right diagonal: ([83+49]/2)-([58+95]/2) = 10.5
+
+From this we see that there is an interaction between the two as we’d expect. Using these values we can create further experiments to find the optimal settings for each factor. Adjusting the “knobs” in relation to the mass and interaction effects found.
+

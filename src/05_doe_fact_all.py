@@ -76,6 +76,7 @@ def main():
 
     plt.figure(2)
     plt.plot(hash_pass_x_axis, hash_pass_y_axis)
+    plt.xticks(ticks=[3, 4])
     plt.yticks(ticks=[40, 100])
     plt.xlabel('Hash Pass Count')
     plt.ylabel('False Positive Avg')
@@ -93,6 +94,7 @@ def main():
 
     plt.figure(3)
     plt.plot(bit_size_x_axis, bit_size_y_axis)
+    plt.xticks(ticks=[50000, 60000])
     plt.yticks(ticks=[40, 100])
     plt.xlabel('Bit Array Size Count')
     plt.ylabel('False Positive Avg')
@@ -103,11 +105,15 @@ def main():
     interaction_fp_1 = [cnt_fp[0], cnt_fp[-1]]
     interaction_fp_2 = [cnt_fp[1], cnt_fp[-2]]
     interaction_effect = np.absolute((np.sum(interaction_fp_1)/len(interaction_fp_1))-(np.sum(interaction_fp_2)/len(interaction_fp_2)))
-    print('The Hash Pass / Bit Array Size effect is {}'.format(interaction_effect))
+    print('The Hash Pass / Bit Array Size interaction effect is {}'.format(interaction_effect))
 
+    
     plt.figure(4)
+    plt.xticks(ticks=[])
+    plt.yticks(ticks=[])
     plt.plot(interaction_fp_1, '-o')
     plt.plot(interaction_fp_2, '-o')
+    plt.title('Hash Pass / Bit Array Size interaction effect')
 
     plt.show()
 
