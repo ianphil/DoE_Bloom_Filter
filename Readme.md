@@ -250,7 +250,7 @@ def main():
 
 ![image](https://user-images.githubusercontent.com/17349002/54539115-f14a0880-496b-11e9-8c37-958d6dc7c45a.png)
 
-The code snippet above is found in [03_doe_fat_hash.py](https://github.com/iphilpot/DoE_Bloom_Filter/blob/master/src/03_doe_fat_hash.py) where we are conducting a OFAT experiment varying only the count of hash passes used to insert items into the bloom filter’s bit array. The figure below is a graph of the effect this has on the response variable: false positives. We see that there is not very much information to be gleaned from this type of experiment.
+The code snippet above is found in [03_doe_fat_hash.py](https://github.com/iphilpot/DoE_Bloom_Filter/blob/master/src/03_doe_fat_hash.py) where we are conducting a OFAT experiment varying only the count of hash passes used to insert items into the bloom filter’s bit array. The figure below is a graph of the effect this has on the response variable: false positives. From this we see that when all other variables are fixed, false positives are minimized at 4 and 6 hash passes. This is suspect because when other factors are changed, we may get different results and interactions are not detectable. 
 
 ## Factorial Experiment
 The goal of a factorial experiment is to “turn the knobs” of all the factors being tested and understand the effect and interactions each have on one another. The major advantage is that using these techniques we can utilize all of the data gathered to determine how best to work with the factors when building machine learning models or solving problems considered complex.
@@ -314,7 +314,7 @@ def main():
                 .format(false_positive_count, bit_arr_size, hash_count))
 ```
 
-The code above is in the file [05_doe_fact_all.py](https://github.com/iphilpot/DoE_Bloom_Filter/blob/master/src/05_doe_fact_all.py) and will drive the experiment. Since we already have the answers to what the settings are for right-sized bloom filter, we target the values surrounding to reduce the amount of experiments we have to run. For hash pass counts we use 3 and 4. For bit array size we use 50,000 and 60,000. For this experiment we will only do one pass. There is no variation in the response variable between runs, so we know the output is statistically significant. Otherwise we would employ other tools to show the output is useful between runs if there is variance detected. 
+The code above is in the file [05_doe_fact_all.py](https://github.com/iphilpot/DoE_Bloom_Filter/blob/master/src/05_doe_fact_all.py) and will drive the experiment. Since we already have the answers to what the settings are for right-sized bloom filter, we establish the factor experimental levels so as to gain the greatest amount of information with the fewest number of experimental runs. For hash pass counts we use 3 and 4. For bit array size we use 50,000 and 60,000. For this experiment we will only do one pass. There is no variation in the response variable between runs, so we know the output is statistically significant. Otherwise we would employ additional techniques to assess if the results are statistically significant.
 
 ![image](https://user-images.githubusercontent.com/17349002/54553185-09c81c00-4988-11e9-812a-6c1ac5b86158.png)
 
@@ -348,5 +348,12 @@ The Hash Pass / Bit Array Size interaction effect is 10.5
 
 The hash pass / bit array size interaction effect is obtained by taking the average false positives from left to right diagonal: ([83+49]/2)-([58+95]/2) = 10.5
 
-From this we see that there is an interaction between the two as we’d expect. Using these values we can create further experiments to find the optimal settings for each factor. Adjusting the “knobs” in relation to the mass and interaction effects found.
+From this we see that there is an interaction between the two as we’d expect. 10.5 is considered significant and would direct further experimentation to focus on the interaction. Each factor has an effect, but they also depend on the level of other factors. From this we see that when 4 hash passes are deployed, false positives are minimized with a 60000 bit array. Using these values and knowledge, we can create further experiments to find the optimal settings for each factor. Adjusting the “knobs” in relation to the main and interaction effects found. 
+
+## Conclusion
+The idea for this study is not to use Bloom Filters for anything other than simply a data structure to experiment with. We could've used anything in its place, but it turned out to be a great example. And fun to learn about.
+
+The main point is how we modeled the experiment, the results, and the findings they drove. Ultimately bit array size (m) is more important than hash passes (k) and the interaction of both (m + k) is very significant. This supports the known properties of Bloom filters.
+
+Applying this to an ML model or complex problems, we can decide what are the more important factors and how they interact, or if there is no interaction between the factors. This gives us an efficient starting point for training models or writing algorithms. Ultimately, we can hypothesize that we can reduce overall training time and costs using this method. 
 
