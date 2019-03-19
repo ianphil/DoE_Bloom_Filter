@@ -7,7 +7,7 @@ import numpy as np
 import math
 
 # This is the last experiment, a 2 factorial designed experiment. The goal is to understand 
-# the mass effect of each variable, but also the interaction between the to variables we control
+# the main effect of each variable, but also the interaction between the to variables we control
 # and how they affect the respons variable (false positives). 
 def main():
     
@@ -71,8 +71,8 @@ def main():
     hash_pass_y_axis = []
     hash_pass_y_axis.append(np.sum(hash_pass_fp_3)/len(hash_pass_fp_3))
     hash_pass_y_axis.append(np.sum(hash_pass_fp_4)/len(hash_pass_fp_4))
-    mass_diff_hash = np.absolute(hash_pass_y_axis[0]-hash_pass_y_axis[1])
-    print('The mass effect for hash passes is {}'.format(mass_diff_hash))
+    main_diff_hash = np.absolute(hash_pass_y_axis[0]-hash_pass_y_axis[1])
+    print('The main effect for hash passes is {}'.format(main_diff_hash))
 
     plt.figure(2)
     plt.plot(hash_pass_x_axis, hash_pass_y_axis)
@@ -80,7 +80,7 @@ def main():
     plt.yticks(ticks=[40, 100])
     plt.xlabel('Hash Pass Count')
     plt.ylabel('False Positive Avg')
-    plt.title('Hash Pass Count Mass Effect')
+    plt.title('Hash Pass Count Main Effect')
 
     # Bit Array Size Main Effect + Plot
     bit_size_x_axis = cnt_size[:2]
@@ -89,8 +89,8 @@ def main():
     bit_size_y_axis = []
     bit_size_y_axis.append(np.sum(bit_size_fp_5)/len(bit_size_fp_5))
     bit_size_y_axis.append(np.sum(bit_size_fp_6)/len(bit_size_fp_6))
-    mass_diff_size = np.absolute(bit_size_y_axis[0]-bit_size_y_axis[1])
-    print('The mass effect for bit array size is {}'.format(mass_diff_size))
+    main_diff_size = np.absolute(bit_size_y_axis[0]-bit_size_y_axis[1])
+    print('The main effect for bit array size is {}'.format(main_diff_size))
 
     plt.figure(3)
     plt.plot(bit_size_x_axis, bit_size_y_axis)
@@ -98,7 +98,7 @@ def main():
     plt.yticks(ticks=[40, 100])
     plt.xlabel('Bit Array Size Count')
     plt.ylabel('False Positive Avg')
-    plt.title('Bit Array Size Mass Effect')
+    plt.title('Bit Array Size Main Effect')
     
 
     # Hash Pass/Bit Array Size Interaction Effect + Plot

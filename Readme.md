@@ -76,7 +76,7 @@ There are three main factors we can use to efficiently and effectively store and
  1. Probability of false positives
     * Let false positives be “p”
 
-![image](https://user-images.githubusercontent.com/17349002/54538296-66b4d980-496a-11e9-8af5-7d4fcd6c7c09.png)
+![image](https://user-images.githubusercontent.com/17349002/54603434-a76c2b80-4a1a-11e9-87f7-5566b7651c60.png)
 
 ```python
 def false_positive_probability(self, m, k, n):
@@ -96,7 +96,7 @@ def false_positive_probability(self, m, k, n):
  2. Size of the bit array
     * Let bit array size be “m”
 
-![image](https://user-images.githubusercontent.com/17349002/54538446-a380d080-496a-11e9-8a6b-7bba41332cbe.png)
+![image](https://user-images.githubusercontent.com/17349002/54603465-bd79ec00-4a1a-11e9-85fa-f20ca5c8a790.png)
 
 ```python
 def bit_array_size(self, n, p):
@@ -115,7 +115,7 @@ def bit_array_size(self, n, p):
  3. Number of hash functions or passes
     * Let hash function pass count be “k”
 
-![image](https://user-images.githubusercontent.com/17349002/54538548-d32fd880-496a-11e9-9a81-9f9cbc70c068.png)
+![image](https://user-images.githubusercontent.com/17349002/54603488-d08cbc00-4a1a-11e9-83fc-af280592186f.png)
 
 ```python
 def hash_pass_count(self, m, n):
@@ -248,7 +248,7 @@ def main():
     plt.show()
 ```
 
-![image](https://user-images.githubusercontent.com/17349002/54539115-f14a0880-496b-11e9-8c37-958d6dc7c45a.png)
+![image](https://user-images.githubusercontent.com/17349002/54603350-75f36000-4a1a-11e9-908d-a6f8372e63f0.png)
 
 The code snippet above is found in [03_doe_fat_hash.py](https://github.com/iphilpot/DoE_Bloom_Filter/blob/master/src/03_doe_fat_hash.py) where we are conducting a OFAT experiment varying only the count of hash passes used to insert items into the bloom filter’s bit array. The figure below is a graph of the effect this has on the response variable: false positives. From this we see that when all other variables are fixed, false positives are minimized at 4 and 6 hash passes. This is suspect because when other factors are changed, we may get different results and interactions are not detectable. 
 
@@ -267,7 +267,7 @@ import numpy as np
 import math
 
 # This is the last experiment, a 2 factorial designed experiment. The goal is to understand 
-# the mass effect of each variable, but also the interaction between the to variables we control
+# the main effect of each variable, but also the interaction between the to variables we control
 # and how they affect the respons variable (false positives). 
 def main():
     
@@ -316,25 +316,25 @@ def main():
 
 The code above is in the file [05_doe_fact_all.py](https://github.com/iphilpot/DoE_Bloom_Filter/blob/master/src/05_doe_fact_all.py) and will drive the experiment. Since we already have the answers to what the settings are for right-sized bloom filter, we establish the factor experimental levels so as to gain the greatest amount of information with the fewest number of experimental runs. For hash pass counts we use 3 and 4. For bit array size we use 50,000 and 60,000. For this experiment we will only do one pass. There is no variation in the response variable between runs, so we know the output is statistically significant. Otherwise we would employ additional techniques to assess if the results are statistically significant.
 
-![image](https://user-images.githubusercontent.com/17349002/54553185-09c81c00-4988-11e9-812a-6c1ac5b86158.png)
+![image](https://user-images.githubusercontent.com/17349002/54603136-f1a0dd00-4a19-11e9-8300-1d66718f92f2.png)
 
 The cube plot above shows a 2-factor experiment. The plot has each factor at different levels and each combination shown. This creates a 2-d square where a 3-factor experiment would create a cube. The different combinations for further analysis will be derived from this plot.
 
-To understand the mass effect that the hash pass counts have on our experiment we will take the average of these and plot them. The data from our cube plot would look something like:
+To understand the main effect that the hash pass counts have on our experiment we will take the average of these and plot them. The data from our cube plot would look something like:
 
 ![image](https://user-images.githubusercontent.com/17349002/54553383-73482a80-4988-11e9-960c-4d2044de22f7.png)
 
-![image](https://user-images.githubusercontent.com/17349002/54553406-8529cd80-4988-11e9-8894-6f96e352dd0a.png)
+![image](https://user-images.githubusercontent.com/17349002/54603024-ad154180-4a19-11e9-8d5e-c4de373cec25.png)
 
-The mass effect for hash passes is 1.5
+The main effect for hash passes is 1.5
 
 This is found by taking the averages of the two runs and finding the difference: ([83+58]/2)-([95+49]/2) = 1.5
 
 ![image](https://user-images.githubusercontent.com/17349002/54553468-a1c60580-4988-11e9-93dd-144b85aea89a.png)
 
-![image](https://user-images.githubusercontent.com/17349002/54553494-b0142180-4988-11e9-9491-86f696c97276.png)
+![image](https://user-images.githubusercontent.com/17349002/54603261-3c225980-4a1a-11e9-8410-cf736fe8d924.png)
 
-The mass effect for bit array size is 35.5
+The main effect for bit array size is 35.5
 
 Similarly, this is found by taking the averages of the two runs and finding the difference: ([83+95]/2)-([58+49]/2) = 35.5
 
@@ -342,7 +342,7 @@ From these two graphs we see that both effect the response variable, but that th
 
 ![image](https://user-images.githubusercontent.com/17349002/54553547-cf12b380-4988-11e9-9bb1-22e80b82bba1.png)
 
-![image](https://user-images.githubusercontent.com/17349002/54553566-db970c00-4988-11e9-994f-26961ce62280.png)
+![image](https://user-images.githubusercontent.com/17349002/54603285-4d6b6600-4a1a-11e9-8a6d-e2c2125c8b04.png)
 
 The Hash Pass / Bit Array Size interaction effect is 10.5
 
