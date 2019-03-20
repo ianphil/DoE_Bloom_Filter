@@ -3,6 +3,10 @@ In today’s computing landscape utility computing and layers of abstraction red
 
 Through a simple, statistically based approach to experimentation we can better understand the factors that make up our data. This will give better understanding to how and why our models are either working or failing. The advanced nature that makes up modern algorithms and computing infrastructure it takes to understand much of the work being done today, we will focus our work on Bloom Filters. This probabilistic data structure is very well understood and gives us a known target to demonstrate how to create experiments that can be applied to many of the problems that face us today. These experiments are only to explore the process of experimentation and not necessarily to learn anything new about this data structure.
 
+![image](https://user-images.githubusercontent.com/17349002/54678757-32612a80-4adc-11e9-850c-211c114a9a35.png)
+
+>Correlation doesn't imply causation, but it does waggle its eyebrows suggestively and gesture furtively while mouthing 'look over there'.
+
 ## Bloom Filter
 Bloom filters are a probabilistic data structure created in 1970 by Burton Bloom. It is used to test if an entity is found within a set. False Positive matches can and do occur, but false negatives do not. This means for the user that an item is possibly in the set, or it is not. Because of this, it has very specific use cases, but can drastically increase the speed or scale of a system ([Wikipedia](https://en.wikipedia.org/wiki/Bloom_filter)).
 
