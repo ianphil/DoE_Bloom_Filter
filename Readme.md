@@ -3,7 +3,7 @@ In today’s computing landscape utility computing and layers of abstraction red
 
 Through a simple, statistically based approach to experimentation we can better understand the factors that make up our data. This will give better understanding to how and why our models are either working or failing. The advanced nature that makes up modern algorithms and computing infrastructure it takes to understand much of the work being done today, we will focus our work on Bloom Filters. This probabilistic data structure is very well understood and gives us a known target to demonstrate how to create experiments that can be applied to many of the problems that face us today. These experiments are only to explore the process of experimentation and not necessarily to learn anything new about this data structure.
 
-![image](https://user-images.githubusercontent.com/17349002/54678757-32612a80-4adc-11e9-850c-211c114a9a35.png)
+![image](https://imgs.xkcd.com/comics/correlation.png)
 
 >Correlation doesn't imply causation, but it does waggle its eyebrows suggestively and gesture furtively while mouthing 'look over there'.
 
